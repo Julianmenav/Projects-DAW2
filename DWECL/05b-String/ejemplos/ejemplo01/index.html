@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 01</title>
+  <link rel="stylesheet" href="../../index.css"> 
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="text/javascript" src="./js/changeTextFunctions.js" defer></script>
+  <script type="text/javascript" src="./js/randomPadFunctions.js" defer></script>
+  <script type="text/javascript" src="./js/index.js" defer></script>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <div id="principalTitle">
+        <h1>Desarrollo Web Entorno Cliente</h1>
+      </div>
+      <div id="icons">
+        <a href="mailto:jmenvin346@g.educaand.es">
+          <img src="../../img/mailIcon.svg" alt="" />
+        </a>
+        <a href="https://github.com/Julianmenav/">
+          <img src="../../img/githubIcon.svg" alt="" />
+        </a>
+      </div>
+    </div>
+
+    <div id="content">
+      <h2><strong>Operaciones con Cadenas</strong></h2>
+
+
+      <textarea contenteditable="true" id="textBox"></textarea>
+      <div id="buttonContainer">
+        <div id="textButtonPanel" class="buttonPanel">
+          <button id="randomText" class="btn">Generar Texto Aleatorio</button>
+          <div id="textButtonsGrid">
+            <button id="upper" class="btn rand">A-Z</button>
+            <button id="lower" class="btn rand">a-z</button>
+            <button id="firstUpper" class="btn rand">A_</button>
+            <button id="lastUpper" class="btn rand">_Z</button>
+            <button id="firstLower" class="btn rand">a_</button>
+            <button id="lastLower" class="btn rand">_z</button>
+            <button id="vowelsUpper" class="btn rand">AEIOU</button>
+            <button id="vowelsLower" class="btn rand">aeiou</button>
+            <button id="consonantsUpper" class="btn rand">BCDF</button>
+            <button id="consonantsLower" class="btn rand">bcdf</button>
+          </div>
+        </div>
+        <div id="randomButtonPanel" class="buttonPanel">
+          <div id="randomButtonsTitle">Pick Random Button</div>
+          <div id="randomButtonsGrid">
+            <button id="pickRandomBtn" class="btn">Play</button>
+            <button id="stopBtn" class="btn">Stop</button>
+            <button id="fastBtn" class="btn">Fast</button>
+            <button id="slowBtn" class="btn">Slow</button>
+          </div>
+          <div id="currentSpeedContainer">x<span id="currentSpeed">0</span></div>
+        </div>
+      </div>
+      
+
+      <div class="buttonPanel">
+        <button id="clear" class="btn">Limpiar inputs</button>
+      </div>
+    </div>
+    <div id="homePageBtn">
+      <form action="../../index.html">
+        <!-- <input class="btn" type="submit" value="Pagina principal" /> -->
+        <button class="btn">Pagina Principal</button>
+      </form> 
+    </div>
+
+    <div id="footer">
+      Hecho por Julian Mena
+    </div>
+  </div>
+</body>
+</html>
