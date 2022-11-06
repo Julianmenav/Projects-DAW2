@@ -1,0 +1,3 @@
+const cleanBoard = () => {
+  cardContent.innerHTML = "";
+};

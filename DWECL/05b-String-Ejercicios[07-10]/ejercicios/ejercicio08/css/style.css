@@ -1,0 +1,92 @@
+
+
+
+#content {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#card {
+  padding: 10px;
+  width: 500px;
+  min-height: 570px;
+  background-color: rgb(72, 86, 102);
+  box-shadow: 1px 1px 5px rgb(0, 0, 0);
+  border-radius: 9px;
+  display: flex;
+  flex-flow: column wrap;
+  max-width: 80%;
+}
+
+#cardHeader {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+#pesosContainer {
+  flex-grow: 1;
+  text-align: center;
+}
+
+#pesosContainer > p > span {
+  margin: 0 10%;
+}
+
+#jornada {
+  margin: auto;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: rgb(41, 41, 41);
+}
+
+#cardContent {
+  flex-grow: 1;
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+#cardContent > div {
+  background-color: rgb(41, 41, 41);
+  width: 80%;
+  font-size: 0.8rem;
+  padding: 5px 20px ;
+  border-radius: 10px;
+}
+
+.teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+
+}
+
+.results {
+  text-align: center;
+  font-size: 1.4rem;
+  visibility: hidden;
+  margin: 0;
+}
+
+.prediction {
+  font-size: 1.3rem;
+  margin: auto;
+  background-color:rgb(255, 255, 255);
+  color: black;
+  border-radius: 30px;
+  width: fit-content;
+  padding: 0;
+}
+
+.prediction > * {
+  margin: 0px 15px;
+}
+
+
