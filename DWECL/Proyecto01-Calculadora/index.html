@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Plantilla Ejercicios</title>
+  <link href="./css/style.css" rel="stylesheet">
+</head>
+<body id="background" class="">
+  <div id="container" class="text-white min-h- flex flex-col">
+
+    <div id="header" class="bg-neutral-900 flex flex-row justify-between items-center py-2 px-5 shadow-lg">
+      <div id="principalTitle" class="text-white text-2xl xl:text-3xl font-bold">
+        <h1>Desarrollo Web Entorno Cliente</h1>
+      </div>
+      <div id="icons" class="flex flex-row gap-5 " >
+        <a href="https://github.com/Julianmenav/" class="">
+          <img class="w-8" src="./img/githubIcon.svg" alt="" />
+        </a>
+        <a href="mailto:jmenvin346@g.educaand.es" class="">
+          <img class="w-8" src="./img/mailIcon.svg" alt="" />
+        </a>
+      </div>
+    </div>
+    <div id="content">
+      <div id="contentTitle" class="pl-12 pt-6 text-2xl xl:text-3xl">
+        <h1>Ejercicios</h1>
+      </div>
+
+      <div id="exerciseList" class="m-8 lg:m-12 grid gap-3 md:grid-cols-2">
+        <div class="exercise bg-neutral-100 px-3 py-6 w-2/3 min-w-fit max-w-xs m-auto rounded-xl shadow-neutral-300 shadow-sm flex flex-row justify-between align-center">
+          <h3 class="text-black font-bold text-xl md:text-2xl lg:text-3xl mr-3">Calculadora</h3>
+          <form action="./calculadora/index.html">
+            <input class="btn bg-white text-black px-2 py-1 rounded-full shadow-slate-400 shadow-sm active:translate-y-0.5" type="submit" value="Ver Solucion" />
+          </form>
+        </div>
+    </div>
+
+    <div id="footer" class="fixed bottom-0 w-full text-center bg-black text-white text-">
+      Hecho por Julian Mena
+    </div>
+  </div>
+</body>
+</html>

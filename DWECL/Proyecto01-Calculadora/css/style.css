@@ -1,0 +1,33 @@
+#background {
+  background-image: url(../img/bg.svg);
+  /* background-color: white; */
+}
+
+#display{
+  box-shadow: inset -5px -5px 9px #d0f09d7c, inset 5px 5px 9px rgba(94,104,121,0.3);
+  background-color: #a2da49;
+  transition: all 0.8s;
+  border: 2px solid transparent;
+}
+
+.calculatorButton {
+  box-shadow: -4px -4px 9px rgba(244, 255, 221, 0.45), 4px 4px 9px rgba(94,104,121,0.3);
+  background-color: #c6e09b;
+}
+
+.calculatorButton:active{
+  transform: translate(0px ,2px);
+  box-shadow: -4px -3px 9px rgba(255, 255, 255, 0.45), 4px 3px 9px rgba(94,104,121,0.3);
+}
+
+.number{
+  background-color: #d1f891;
+}
+
+#equal{
+  background-color: #fff;
+}
+
+/* #display p {
+  direction: rtl;
+} */

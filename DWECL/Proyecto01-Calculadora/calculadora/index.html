@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Plantilla Ejercicios</title>
+  <link href="../css/style.css" rel="stylesheet">
+  <script type="text/javascript" src="./js/myEval.js" defer></script>
+  <script type="text/javascript" src="./js/index.js" defer></script>
+</head>
+<body id="background" class="bg-cover bg-center">
+  <div id="container" class="text-white min-h-screen flex flex-col">
+    <div id="header" class="bg-neutral-900 flex flex-row justify-between items-center py-2 px-5 shadow-lg">
+      <div id="principalTitle" class="text-white text-2xl xl:text-3xl font-bold">
+        <h1>Desarrollo Web Entorno Cliente</h1>
+      </div>
+      <div id="icons" class="flex flex-row gap-5 " >
+        <a href="https://github.com/Julianmenav/" class="">
+          <img class="w-8" src="../img/githubIcon.svg" alt="" />
+        </a>
+        <a href="mailto:jmenvin346@g.educaand.es" class="">
+          <img class="w-8" src="../img/mailIcon.svg" alt="" />
+        </a>
+      </div>
+    </div>
+    <div id="content">
+      <div id="contentTitle" class="pl-12 pt-6 text-2xl xl:text-3xl">
+        <h1>Calculadora</h1>
+      </div>
+      <div class="max-w-md w-4/5 bg-zinc-200 m-auto rounded-lg p-2 -mt-6 flex flex-col justify-center items-center">
+        
+        <div id="display" class="overflow-hidden w-11/12 h-22 bg-lime-300 border border-white/[0.2] bg-slate-7300 font-mono px-6 py-3 mt-6 mx-12 text-right font-bold text-white/90 text-3xl rounded-xl">
+          <p id="memoryOutput" class="text-base">&nbsp</p>
+          <p class="" id="displayOutput">&nbsp</p>
+        </div>
+        <div class=" grid grid-cols-4 w-11/12 sm:mx-12 mt-2 gap-x-2.5 gap-y-3.5 p-3 justify-items-center ">
+          <button id="percentage" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">%</span>
+          </button>
+          <button id="clearEntry" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">CE</span>
+          </button>
+          <button id="clear" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">C</span>
+          </button>
+          <button id="back" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+              </svg>              
+            </span>
+          </button>
+          <button id="inverse" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">1/X</span>
+          </button>
+          <button id="squared" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">x²</span>
+          </button>
+          <button id="sqroot" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">√</span>
+          </button>
+          <button id="divide" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">÷</span>
+          </button>
+          <button id="seven" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">7</span>
+          </button>
+          <button id="eight" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">8</span>
+          </button>
+          <button id="nine" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">9</span>
+          </button>
+          <button id="multiply" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">×</span>
+          </button>
+          <button id="four" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">4</span>
+          </button>
+          <button id="five" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">5</span>
+          </button>
+          <button id="six" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">6</span>
+          </button>
+          <button id="substract" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">-</span>
+          </button>
+          <button id="one" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">1</span>
+          </button>
+          <button id="two" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">2</span>
+          </button>
+          <button id="three" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">3</span>
+          </button>
+          <button id="plus" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">+</span>
+          </button>
+          <button id="sign" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">±</span>
+          </button>
+          <button id="zero" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">0</span>
+          </button>
+          <button id="dot" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">.</span>
+          </button>
+          <button id="equal" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">=</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer" class="fixed bottom-0 w-full text-center bg-black text-white text-">
+      Hecho por Julian Mena
+    </div>
+  </div>
+</body>
+</html>
