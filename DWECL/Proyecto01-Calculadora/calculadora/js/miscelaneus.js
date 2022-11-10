@@ -1,10 +1,19 @@
 const pressEqual = () => {
-  const result = resolve();
 
-  updateLastInput(inputs.equal);
-  updateDisplay();
+  if(scientificMode){
+    result = operateScientific(memoryArray);
+    updateLastInput(inputs.equal);
+    updateDisplay();
 
-  memoryArray = [result];
+    memoryArray = [result];
+  } else {
+    result = operateInOrder(memoryArray)
+  
+    updateLastInput(inputs.equal);
+    updateDisplay();
+  
+    memoryArray = [result];
+  }
 };
 
 const pressBack = () => {

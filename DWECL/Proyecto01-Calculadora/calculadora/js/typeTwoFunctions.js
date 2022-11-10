@@ -48,11 +48,15 @@ const pressOperator = (e) => {
       newOperator === "-" ? nextIsNegative() : errorStyleEffect();
       break;
     case "number":
-      result = resolve();
       // Para el modo Cientifico
       // memory.push(operator);
-      //Modo Normal (Faltaria guardar en alguna memoria solo visual (opcional))
-      memoryArray = [result, newOperator];
+      if (scientificMode){
+        result = operateScientific(memoryArray)
+        memoryArray.push(newOperator);
+      } else {
+        result = operateInOrder(memoryArray)
+        memoryArray = [result, newOperator];
+      }
 
       updateLastInput(inputs.operator);
       break;
@@ -93,10 +97,17 @@ const pressPercentage = () => {
       output = lastOperand * (operand / 100);
       break;
   }
-  memoryArray.push("%");
-  result = output;
-
-  updateDisplay();
-  memoryArray = [output];
+  
+  if(scientificMode){
+    memoryArray.splice(-3,3,output);
+    result = operateScientific(memoryArray);
+    updateDisplay();
+  } else {
+    memoryArray.push("%");
+    result = output;
+    updateDisplay();
+    memoryArray = [output];
+  }
+  
   updateLastInput(inputs.equal);
 };

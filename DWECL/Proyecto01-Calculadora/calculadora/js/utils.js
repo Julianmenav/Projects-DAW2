@@ -23,8 +23,3 @@ const updateDisplay = () => {
   memoryOutput.innerText = memoryString || "0";
   displayOutput.innerText = result || "0";
 };
-
-const resolve = () => {
-  result = operateInOrder(memoryArray);
-  return result;
-};
