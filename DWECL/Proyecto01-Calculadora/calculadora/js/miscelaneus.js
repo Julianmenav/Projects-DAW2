@@ -42,7 +42,7 @@ const pressClear = () => {
   result = "";
   memoryArray = [];
   memoryValue = "";
-  memoryButton.style.backgroundColor = "#c6e09b"
+  memoryButton.style.backgroundColor = "#ffacac"
   updateLastInput(null);
   updateDisplay();
 };
@@ -50,7 +50,6 @@ const pressClear = () => {
 const pressMemory = () => {
   //Store value
   if(memoryValue === "" && lastInput === "equal"){
-    memoryArray = [];
     memoryValue = result;
     memoryButton.style.backgroundColor = "white"
   }
