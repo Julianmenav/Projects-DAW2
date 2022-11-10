@@ -1,5 +1,5 @@
 //Forma de calcular arrays siguiendo su orden en el array.
-const myEval = (arr) => {
+const operateInOrder = (arr) => {
   //Transformamos números de string a Number.
   const numbersArr = arr.map(el => parseFloat(el) || el);
 

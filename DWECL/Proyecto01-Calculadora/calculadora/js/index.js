@@ -7,7 +7,8 @@ const inputs = {
 };
 
 let lastInput = null;
-let memory = [];
+let memoryArray = [];
+let memoryValue = "";
 let result = "";
 
 const errorStyleEffect = () => {
@@ -19,14 +20,14 @@ const errorStyleEffect = () => {
 };
 
 const nextIsNegative = () => {
-  memory.push("-");
+  memoryArray.push("-");
   updateLastInput(inputs.negative);
 };
 const updateLastInput = (input) => {
   lastInput = input;
 };
 const updateDisplay = () => {
-  const memoryString = memory.join(" ");
+  const memoryString = memoryArray.join(" ");
   if (result === 0) {
     result = "";
   }
@@ -35,7 +36,7 @@ const updateDisplay = () => {
 };
 
 const resolve = () => {
-  result = myEval(memory);
+  result = operateInOrder(memoryArray);
   return result;
 };
 
@@ -44,29 +45,29 @@ const pressNumber = (e) => {
 
   switch (lastInput) {
     case null:
-      memory.push(number);
+      memoryArray.push(number);
       result = number;
       break;
     case "number":
-      memory[memory.length - 1] = memory[memory.length - 1] + number;
+      memoryArray[memoryArray.length - 1] = memoryArray[memoryArray.length - 1] + number;
       result += number;
       break;
     case "operator":
-      memory.push(number);
+      memoryArray.push(number);
       result = number;
       break;
     case "negative":
       const negativeNumber = number * -1;
-      memory.splice(-1, 1, negativeNumber);
+      memoryArray.splice(-1, 1, negativeNumber);
       result = negativeNumber;
       break;
     case "decimal":
       //Result será algo como "2."
-      memory[memory.length - 1] = memory[memory.length - 1] + number;
+      memoryArray[memoryArray.length - 1] = memoryArray[memoryArray.length - 1] + number;
       result = result + number;
       break;
     case "equal":
-      memory = [number];
+      memoryArray = [number];
       result = number;
       break;
     default:
@@ -88,19 +89,19 @@ const pressOperator = (e) => {
       // Para el modo Cientifico
       // memory.push(operator);
       //Modo Normal (Faltaria guardar en alguna memoria solo visual (opcional))
-      memory = [result, newOperator];
+      memoryArray = [result, newOperator];
 
       updateLastInput(inputs.operator);
       break;
     case "operator":
-      if (newOperator === "-" && memory.at(-1) !== "-") {
+      if (newOperator === "-" && memoryArray.at(-1) !== "-") {
         nextIsNegative();
       } else {
-        memory.splice(-1, 1, newOperator);
+        memoryArray.splice(-1, 1, newOperator);
       }
       break;
     case "equal":
-      memory.push(newOperator);
+      memoryArray.push(newOperator);
       updateLastInput(inputs.operator);
       break;
     default:
@@ -113,29 +114,28 @@ const pressOperator = (e) => {
 };
 
 const pressEqual = () => {
-  console.log(memory);
   const result = resolve();
 
   updateLastInput(inputs.equal);
   updateDisplay();
 
-  memory = [result];
+  memoryArray = [result];
 };
 
 const pressBack = () => {
   if (lastInput === inputs.number) {
     result = result.slice(0, -1);
-    memory.splice(-1, 1);
+    memoryArray.splice(-1, 1);
   }
   updateDisplay();
 };
 
 const pressClearEntry = () => {
   result = "";
-  if (lastInput === "number") memory.pop();
+  if (lastInput === "number" || lastInput === "equal") memoryArray.pop();
 
   //En caso de que ya se estuviese operando se deja como "lastInput".
-  if (memory.length > 1) {
+  if (memoryArray.length > 1) {
     updateLastInput(inputs.operator);
   } else {
     updateLastInput(null);
@@ -146,7 +146,9 @@ const pressClearEntry = () => {
 
 const pressClear = () => {
   result = "";
-  memory = [];
+  memoryArray = [];
+  memoryValue = "";
+  memoryButton.style.backgroundColor = "#c6e09b"
   updateLastInput(null);
   updateDisplay();
 };
@@ -156,25 +158,33 @@ const pressInverse = () => {
   if (lastInput !== "number") return;
 
   result = 1 / parseFloat(result);
-  memory.splice(-1, 1, result);
+  memoryArray.splice(-1, 1, result);
 
   updateDisplay();
 };
 
-const pressSquared = () => {
-  if (lastInput !== "number") return;
-
-  result = parseFloat(result) ** 2;
-  memory.splice(-1, 1, result);
+const pressMemory = () => {
+  //Store value
+  if(memoryValue === "" && lastInput === "equal"){
+    memoryArray = [];
+    memoryValue = result;
+    memoryButton.style.backgroundColor = "white"
+  }
+  //Use value
+  if (lastInput === "operator") {
+    memoryArray.push(memoryValue);
+    result = memoryValue;
+    updateLastInput(inputs.number);
+  }
 
   updateDisplay();
 };
 
 const pressSqroot = () => {
-  if (lastInput !== "number") return;
+  if (!(lastInput === "number" || lastInput === "equal")) return;
 
   result = parseFloat(result) ** 0.5;
-  memory.splice(-1, 1, result);
+  memoryArray.splice(-1, 1, result);
 
   updateDisplay();
 };
@@ -183,15 +193,15 @@ const pressSign = () => {
   if (lastInput !== "number") return;
 
   result = parseFloat(result) * -1;
-  memory.splice(-1, 1, result);
+  memoryArray.splice(-1, 1, result);
 
   updateDisplay();
 };
 
 const pressPercentage = () => {
-  const operand = memory.at(-1);
-  const lastOperator = memory.at(-2);
-  const lastOperand = memory.at(-3);
+  const operand = memoryArray.at(-1);
+  const lastOperator = memoryArray.at(-2);
+  const lastOperand = memoryArray.at(-3);
   if (!(lastInput === "number" && ["+", "-", "×"].includes(lastOperator)))
     return;
   let output;
@@ -206,21 +216,21 @@ const pressPercentage = () => {
       output = lastOperand * (operand / 100);
       break;
   }
-  memory.push("%");
+  memoryArray.push("%");
   result = output;
 
   updateDisplay();
-  memory = [output];
+  memoryArray = [output];
 };
 
 const pressDecimal = () => {
   //Solo se activa si el número que manejamos no es decimal aún,
   if (lastInput === "decimal") return;
-  if (memory.at(-1) % 1 !== 0) return;
+  if (memoryArray.at(-1) % 1 !== 0) return;
   if (lastInput !== "number" && lastInput !== null) return;
 
   //Tanto el resultado como el último digito de la memoria son string ahora.
-  memory[memory.length - 1] = memory[memory.length - 1] + ".";
+  memoryArray[memoryArray.length - 1] = memoryArray[memoryArray.length - 1] + ".";
   result += ".";
 
   updateLastInput(inputs.decimal);
@@ -250,7 +260,7 @@ clearEntry.onclick = pressClearEntry;
 clear.onclick = pressClear;
 back.onclick = pressBack;
 inverse.onclick = pressInverse;
-squared.onclick = pressSquared;
+memoryButton.onclick = pressMemory;
 sqroot.onclick = pressSqroot;
 sign.onclick = pressSign;
 dot.onclick = pressDecimal;
