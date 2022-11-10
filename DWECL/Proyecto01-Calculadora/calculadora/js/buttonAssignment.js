@@ -1,3 +1,5 @@
+
+toggleBtn.onclick = changeMode;
 zero.onclick = pressNumber;
 one.onclick = pressNumber;
 two.onclick = pressNumber;

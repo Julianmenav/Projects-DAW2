@@ -34,13 +34,19 @@
       <div id="contentTitle" class="pl-12 pt-6 text-2xl xl:text-3xl">
         <h1>Calculadora</h1>
       </div>
-      <div class="max-w-md w-4/5 bg-zinc-200 m-auto rounded-lg p-2 -mt-6 flex flex-col justify-center items-center">
-        
+      <div id="calculatorContainer" class="relative max-w-md w-4/5 bg-zinc-200 m-auto rounded-lg p-2 -mt-6 flex flex-col justify-center items-center">
+        <div class="absolute bottom-0 translate-y-full rounded-lg flex p-4">
+          <span id="modeText" class="ml-3 text-sm font-medium text-white mx-3">BASICA</span>
+          <label for="toggleBtn" class="inline-flex relative items-center cursor-pointer">
+            <input type="checkbox" value="" id="toggleBtn" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-800"></div>
+          </label>
+        </div>
         <div id="display" class="overflow-hidden w-11/12 h-22 bg-lime-300 border border-white/[0.2] bg-slate-7300 font-mono px-6 py-3 mt-6 mx-12 text-right font-bold text-white/90 text-3xl rounded-xl">
           <p id="memoryOutput" class="text-base">&nbsp</p>
           <p class="" id="displayOutput">&nbsp</p>
         </div>
-        <div class=" grid grid-cols-4 w-11/12 sm:mx-12 mt-2 gap-x-2.5 gap-y-3.5 p-3 justify-items-center ">
+        <div id="buttonsGrid" class="grid grid-cols-4 w-11/12 sm:mx-12 mt-2 gap-x-2.5 gap-y-3.5 p-3 justify-items-center ">
           <button id="memoryButton" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">M</span>
           </button>
@@ -49,6 +55,12 @@
           </button>
           <button id="clear" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">C</span>
+          </button>
+          <button id="log" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">log</span>
+          </button>
+          <button id="ln" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">ln</span>
           </button>
           <button id="back" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">
@@ -66,6 +78,12 @@
           <button id="sqroot" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">√</span>
           </button>
+          <button id="eButton" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">e</span>
+          </button>
+          <button id="piButton" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">π</span>
+          </button>
           <button id="divide" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">÷</span>
           </button>
@@ -77,6 +95,12 @@
           </button>
           <button id="nine" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">9</span>
+          </button>
+          <button id="powerOfTwo" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">2^a</span>
+          </button>
+          <button id="powerOfNumber" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">a^b</span>
           </button>
           <button id="multiply" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">×</span>
@@ -90,6 +114,12 @@
           <button id="six" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">6</span>
           </button>
+          <button id="cos" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">cos</span>
+          </button>
+          <button id="sen" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">sen</span>
+          </button>
           <button id="substract" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">-</span>
           </button>
@@ -102,6 +132,12 @@
           <button id="three" class="calculatorButton number w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">3</span>
           </button>
+          <button id="rndButton" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">Rnd</span>
+          </button>
+          <button id="tan" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">tan</span>
+          </button>
           <button id="plus" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">+</span>
           </button>
@@ -113,6 +149,12 @@
           </button>
           <button id="dot" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">.</span>
+          </button>
+          <button id="factorial" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">!</span>
+          </button>
+          <button id="mod" class="calculatorButton scientific hidden w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
+            <span class="text-black place-self-center text-3xl font-bold">mod</span>
           </button>
           <button id="equal" class="calculatorButton w-11/12 sm:w-20 h-14 rounded-xl py-0 grid">
             <span class="text-black place-self-center text-3xl font-bold">=</span>
