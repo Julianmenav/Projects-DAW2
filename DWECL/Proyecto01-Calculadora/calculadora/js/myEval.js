@@ -41,8 +41,8 @@ const operateScientific = (arr) => {
     .replace(/÷/g, "/")
     .replace(/\^/g, "**")
     .replace(/--/g, "+")
-    .replace(/π/, Math.PI.toString())
-    .replace(/e/g, Math.E.toString());
+    .replace(/π/, Math.PI)
+    .replace(/e/g, Math.E);
 
   return eval(parsedString);
 };

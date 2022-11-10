@@ -27,3 +27,16 @@ memoryButton.onclick = pressMemory;
 sqroot.onclick = pressSqroot;
 sign.onclick = pressSign;
 dot.onclick = pressDecimal;
+
+log.onclick = pressLog;
+ln.onclick = pressLog;
+eButton.onclick = pressMathNumber;
+piButton.onclick = pressMathNumber;
+powerOfTwo.onclick  = pressPower;
+powerOfNumber.onclick = pressOperator;
+cos.onclick = pressTrigonometric;
+sen.onclick = pressTrigonometric
+rndButton.onclick = pressRandom;
+tan.onclick = pressTrigonometric;
+factorial.onclick = pressFactorial;
+modBtn.onclick = pressOperator;

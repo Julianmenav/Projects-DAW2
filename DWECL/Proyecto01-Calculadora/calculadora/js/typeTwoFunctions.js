@@ -39,9 +39,11 @@ const pressNumber = (e) => {
 };
 
 
-
+// + , - , / , * , ^ , mod
 const pressOperator = (e) => {
-  const newOperator = e.target.innerText;
+  let newOperator = e.target.innerText;
+  console.log(newOperator);
+  newOperator = newOperator.replace("a^b", "^" ).replace("mod", "%");
 
   switch (lastInput) {
     case null:
@@ -63,7 +65,7 @@ const pressOperator = (e) => {
     case "operator":
       if (newOperator === "-" && memoryArray.at(-1) !== "-") {
         nextIsNegative();
-      } else {
+      } else if(newOperator !== "^"){
         memoryArray.splice(-1, 1, newOperator);
       }
       break;
