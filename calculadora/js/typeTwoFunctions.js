@@ -42,7 +42,6 @@ const pressNumber = (e) => {
 // + , - , / , * , ^ , mod
 const pressOperator = (e) => {
   let newOperator = e.target.innerText;
-  console.log(newOperator);
   newOperator = newOperator.replace("a^b", "^" ).replace("mod", "%");
 
   switch (lastInput) {
