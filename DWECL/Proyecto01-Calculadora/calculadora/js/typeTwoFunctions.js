@@ -99,7 +99,7 @@ const pressPercentage = () => {
       output = lastOperand * (operand / 100);
       break;
   }
-  
+  output = parseFloat(output.toFixed(6));
   if(scientificMode){
     memoryArray.splice(-3,3,output);
     result = operateScientific(memoryArray);
