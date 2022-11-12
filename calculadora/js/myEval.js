@@ -30,7 +30,7 @@ const operateInOrder = (arr) => {
     { value: 0, operand: null }
   );
 
-  return result.value;
+  return parseFloat((result.value.toFixed(6)));
 };
 
 const operateScientific = (arr) => {
@@ -44,5 +44,5 @@ const operateScientific = (arr) => {
     .replace(/π/, Math.PI)
     .replace(/e/g, Math.E);
 
-  return eval(parsedString);
+  return parseFloat((eval(parsedString).toFixed(6)));
 };

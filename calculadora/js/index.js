@@ -11,5 +11,3 @@ let memoryArray = [];
 let memoryValue = "";
 let result = "";
 let scientificMode = false;
-
-
