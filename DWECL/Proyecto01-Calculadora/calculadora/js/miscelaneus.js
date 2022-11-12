@@ -67,7 +67,7 @@ const pressDecimal = () => {
   //Solo se activa si el número que manejamos no es decimal aún,
   if (lastInput === "decimal") return;
   if (memoryArray.at(-1) % 1 !== 0) return;
-  if (lastInput !== "number" && lastInput !== null) return;
+  if (lastInput !== "number" && lastInput !== "equal") return;
 
   //Tanto el resultado como el último digito de la memoria son string ahora.
   memoryArray[memoryArray.length - 1] = memoryArray[memoryArray.length - 1] + ".";
