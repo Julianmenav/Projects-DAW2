@@ -12,8 +12,20 @@
 require_once("./modelos/libro.php");
 require_once("database.php");
 
-$sql = "SELECT * FROM libro ;";
+//Calculando número de libros por página y número de páginas necesarias.
+define("REGISTROS", 4);
+$pag = abs($_GET["pagina"]) ?? 0;
+$inicio = $pag * REGISTROS;
+$cantidad = REGISTROS;
+
+$resultado1 = $con->query("SELECT * FROM libro;");
+$numBooks = $resultado1->num_rows;
+$totalPages = floor($numBooks / REGISTROS);
+
+//Seleccionando libros de la página actual.
+$sql = "SELECT * FROM libro LIMIT {$inicio}, {$cantidad} ;";
 $resultado = $con->query($sql);
+
 if ($resultado->num_rows < 1) :
 ?>
   <div class="text-red-700 bg-red-200 w-fit px-2 py-4 rounded-md m-auto mt-12">No se encontraron resultados</div>
@@ -48,8 +60,21 @@ if ($resultado->num_rows < 1) :
           </div>
         </div>
       <?php endwhile; ?>
+
+    </div>
+    <div class="flex justify-center mb-12">
+      <?php if ($pag > 0) : ?>
+        <a class="px-4 py-1 border border-black bg-neutral-50 font-bold rounded-sm" href="index.php?pagina=<?= $pag - 1 ?>">
+          Atras
+        </a>
+      <?php endif; ?>
+      &nbsp;|&nbsp;
+      <?php if ($pag < $totalPages) : ?>
+        <a class="px-4 py-1 border border-black bg-neutral-50 font-bold rounded-sm" href="index.php?pagina=<?= $pag + 1 ?>">
+          Siguiente
+        </a>
+      <?php endif; ?>
     </div>
   </body>
-
 </html>
 <?php endif; ?>
