@@ -14,7 +14,7 @@ require_once("database.php");
 
 //Calculando número de libros por página y número de páginas necesarias.
 define("REGISTROS", 4);
-$pag = abs($_GET["pagina"]) ?? 0;
+$pag = $_GET["pagina"] ?? 0;
 $inicio = $pag * REGISTROS;
 $cantidad = REGISTROS;
 
@@ -62,19 +62,18 @@ if ($resultado->num_rows < 1) :
       <?php endwhile; ?>
 
     </div>
-    <div class="flex justify-center mb-12">
-      <?php if ($pag > 0) : ?>
-        <a class="px-4 py-1 border border-black bg-neutral-50 font-bold rounded-sm" href="index.php?pagina=<?= $pag - 1 ?>">
-          Atras
-        </a>
-      <?php endif; ?>
-      &nbsp;|&nbsp;
-      <?php if ($pag < $totalPages) : ?>
-        <a class="px-4 py-1 border border-black bg-neutral-50 font-bold rounded-sm" href="index.php?pagina=<?= $pag + 1 ?>">
-          Siguiente
-        </a>
-      <?php endif; ?>
+    <!-- Bucle desde p-3 hasta p+3 (minimo 0 y máximo totalPages) -->
+    <div class="mb-12 flex justify-center">
+          <?php for ($i = $pag - 2; $i < $pag + 2; $i++) :
+            if ($i >= 0 and $i <= $totalPages) : ?>
+              <a class="px-4 py-1 border border-black mx-1 rounded-md  <?= $i == $pag ? "bg-black text-white" : "bg-neutral-50" ?>" href="index.php?pagina=<?= $i ?>">
+                <?= $i ?>
+              </a>
+          <?php endif;
+          endfor; ?>
+        </div>
     </div>
   </body>
+
 </html>
 <?php endif; ?>
