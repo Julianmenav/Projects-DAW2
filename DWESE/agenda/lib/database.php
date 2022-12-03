@@ -14,6 +14,7 @@
     private function __construct() {
       try {
         $this->con = new mysqli("localhost", "root", "", "agenda");
+        // $this->con = new mysqli("containers-us-west-86.railway.app:6810", "root", "BscmQwbdhRNANlKm7gG7", "railway");
         
       } catch (\Throwable $th) {
         die("Error de conexión con el motor de Bases de Datos.");

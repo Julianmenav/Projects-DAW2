@@ -1,35 +1,35 @@
 <?php
-  session_start();
-  require_once "./lib/database.php";
-  require_once "./model/usuario.php";
-  require_once "./model/token.php";
+session_start();
+require_once "./lib/database.php";
+require_once "./model/usuario.php";
+require_once "./model/token.php";
 
-  if(isset($_POST["email"])):
-    
-    //EL token que hay que validar es el del post! pero con ese nunca me entra..
-    if(Token::check($_SESSION["_token"])):
-      
-      $db = Database::getDatabase();
-      
-      $datos = $db->escape($_POST);
+if(isset($_POST["email"])):
 
-      $email = $datos["email"];
-      $password = md5($datos["password"]);
+  //El error del token aparece en el momento en el que hacemos start_session() 2 veces. Salta un aviso el cual nos lo mete en el toString().. por eso no se igualan los tokens.
+  //Token validation
+  if (Token::check($_POST["_token"])) :
+    $db = Database::getDatabase();
 
-      $db->query("SELECT * FROM usuario WHERE email = '{$email}' AND password = '{$password}' ;");
-      $usuario = $db->getData("Usuario");
+    $datos = $db->escape($_POST);
 
-      if($usuario == null){
-        $error = "Nombre de usuario o contraseña incorrectos.";
-      } else {
-        $_SESSION["inicio"] = time();
-        $_SESSION["user"] = serialize($usuario);
+    $email = $datos["email"];
+    $password = md5($datos["password"]);
 
-        header("location: main.php");
-      }
-    endif;
+    $db->query("SELECT * FROM usuario WHERE email = '{$email}' AND password = '{$password}' ;");
+    $usuario = $db->getData("Usuario");
 
+    if($usuario == null){
+      $error = "Nombre de usuario o contraseña incorrectos.";
+    } else {
+      $_SESSION["inicio"] = time();
+      $_SESSION["user"] = serialize($usuario);
+
+      exit(header("location: main.php"));
+    }
   endif;
+  
+endif;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,9 +54,9 @@
         </svg>
       </span>
     </p>
-    <form method="post" action="<?= isset($_GET["register"]) ? "./login.php?register" : "./login.php" ?>" class="m-auto w-fit flex flex-col items-center border-2 border-black shadow-xl rounded-md px-6 pb-6 pt-8 bg-neutral-200">
+    <form method="post" action="<?= isset($_GET["register"]) ? "./login.php?register" : "login.php" ?>" class="m-auto w-fit flex flex-col items-center border-2 border-black shadow-xl rounded-md px-6 pb-6 pt-8 bg-neutral-200">
       <!-- Aqui un input hidden con el token -->
-      <input type="hidden" name="_token" value="<?= new Token?>">
+      <input type="hidden" name="_token" value="<?= new Token() ?>">
       <label for="email" class="self-start">Email</label>
       <input id="email" type="email" name="email" class="border border-black[0.7] mb-6 px-4 py-1 rounded-md shadow-md" required>
       <label for="password" class="self-start">Password</label>
@@ -76,20 +76,20 @@
         <?php
         if (isset($_GET["signup"])) :
         ?>
-          <p >Ya tienes una cuenta? <a href="login.php" class="text-teal-600">Login</a></p>
+          <p>Ya tienes una cuenta? <a href="login.php" class="text-teal-600">Login</a></p>
         <?php
         else :
         ?>
-          <p >No tienes cuenta? <a href="login.php?signup" class="text-red-600">Registrate</a></p>
+          <p>No tienes cuenta? <a href="login.php?signup" class="text-red-600">Registrate</a></p>
         <?php endif; ?>
       </div>
     </form>
     <?php
-      if(isset($error)):
+    if (isset($error)) :
     ?>
-    <div class="text-red-600 bg-red-200 px-4 py-2 w-fit mt-2 rounded-md"><?= $error ?></div>
+      <div class="text-red-600 bg-red-200 px-4 py-2 w-fit mt-2 rounded-md"><?= $error ?></div>
     <?php
-      endif;
+    endif;
     ?>
   </div>
 </body>

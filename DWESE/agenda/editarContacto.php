@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once "./model/usuario.php";
 require_once "./lib/database.php";
 require_once "./model/contacto.php";
@@ -13,26 +13,29 @@ if (isset($_GET["id"])){
 
 // AQUI VAN LOS NUEVOS VALORES UNA VEZ RELLENO EL FORM
 if (isset($_POST["name"])){
-  $idContact = $_POST["idContact"];
 
-  $contactEdit = Contacto::getById($idContact);
+  if(Token::check($_POST["_token"])) : 
+    $idContact = $_POST["idContact"];
 
-  $contactEdit->nombre = $_POST["name"];
-  $contactEdit->apellido = $_POST["surname"];
-  $contactEdit->telefono = $_POST["tlf"];
-  $contactEdit->email = $_POST["email"];
-  $contactEdit->foto = $_POST["photo"];
-  $contactEdit->observaciones = $_POST["obs"];
+    $contactEdit = Contacto::getById($idContact);
 
-  //Recuperamos de la sesión el id del usuario que está agregando
-  session_start();
-  $idUsu = unserialize($_SESSION["user"])->id;
-  $contactEdit->idUsu = $idUsu;
+    $contactEdit->nombre = $_POST["name"];
+    $contactEdit->apellido = $_POST["surname"];
+    $contactEdit->telefono = $_POST["tlf"];
+    $contactEdit->email = $_POST["email"];
+    $contactEdit->foto = $_POST["photo"];
+    $contactEdit->observaciones = $_POST["obs"];
 
-  //Falta hacer método update 
-  $contactEdit->update(); 
+    //Recuperamos de la sesión el id del usuario que está agregando
 
-  exit(header("location: main.php?success"));
+    $idUsu = unserialize($_SESSION["user"])->id;
+    $contactEdit->idUsu = $idUsu;
+
+    //Falta hacer método update 
+    $contactEdit->update(); 
+
+    exit(header("location: main.php?success"));
+  endif;
 }
 ?>
 <!DOCTYPE html>

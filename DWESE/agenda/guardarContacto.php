@@ -9,8 +9,7 @@ require_once "./model/token.php";
 if (isset($_POST["name"])) : //if(!empty($_POST)):
 
   //Validar token
-  //EL token que hay que validar es el del post!
-  if (Token::check($_SESSION["_token"])) :
+  if (Token::check($_POST["_token"])) :
 
     $db = Database::getDatabase();
     // Antes usaba el escape antes de pasarle los datos a contacto.
@@ -83,7 +82,7 @@ endif;
           </div>
           <div class="col-span-6 sm:col-span-3">
             <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observaciones</label>
-            <textarea type="text" name="obs" id="department" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Un máquina" ></textarea>
+            <textarea type="text" name="obs" id="department" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Un máquina"></textarea>
           </div>
         </div>
       </div>
@@ -101,4 +100,5 @@ endif;
     </form>
   </div>
 </body>
+
 </html>

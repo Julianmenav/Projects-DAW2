@@ -4,11 +4,9 @@
 
     private string $token;
 
-
     public function __construct() {
-      session_start();
       $this->token = md5(time());
-
+      
       $_SESSION["_token"] = $this->token;
     }
     

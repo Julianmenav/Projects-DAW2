@@ -1,8 +1,14 @@
 <?php
 session_start();
+
 //Para que funcione la deserializacion.
 require_once "./model/usuario.php";
 require_once "./model/contacto.php";
+
+
+if(!isset($_SESSION["user"])){
+  exit(header("location: login.php"));
+}
 
 if (isset($_GET["logout"])) {
   $_SESSION = [];
