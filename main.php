@@ -1,25 +1,35 @@
 <?php
 session_start();
-//Para que funcione la deserializacion.
-require_once "./model/usuario.php";
-require_once "./model/contacto.php";
+require_once("./models/Usuario.php");
+require_once("./lib/Database.php");
+require_once("./models/Lista.php");
+
+if (!isset($_SESSION["user"])) :
+  exit(header("location: index.php"));
+endif;
 
 if (isset($_GET["logout"])) {
   $_SESSION = [];
   session_destroy();
-
-  //Redigirimos al login otra vez
-  exit(header("location: login.php"));
+  exit(header("location: index.php"));
 }
+
+$idUsu = unserialize($_SESSION["user"])->idUsu;
 if (isset($_GET["borrar"])) {
-  $idContact = $_GET["borrar"] ?? "";
+  $task = Lista::getTaskById($_GET["borrar"]);
+  if ($task->idUsu == $idUsu) {
+    $task->delete();
+  }
 
-  $contact = Contacto::getById($idContact);
-
-  if ($contact) $contact->delete();
-
-  header("location: main.php");
+  exit(header("location: main.php"));
 }
+if (isset($_GET["changeState"])) {
+  $task = Lista::getTaskById($_GET["changeState"]);
+  $task->changeState();
+
+  exit(header("location: main.php"));
+}
+$db = Database::getDataBase();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,85 +39,50 @@ if (isset($_GET["borrar"])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Logeado</title>
 </head>
 
-<body class="bg-neutral-800">
-  <!-- Mensaje de bienvenida y logout -->
-  <div class="p-3 ml-12 m-6 bg-gray-200 text-gray-500 w-fit rounded-xl shadow-md">
-    Bienvenido <?= unserialize($_SESSION["user"])->nombre ?>
-    <div>
-      <a href="main.php?logout" class="text-red-500">Desconectar</a>
-    </div>
+<body class="bg-[#242424]">
+  <div class=" text-white p-3 m-12  w-fit font-bold">
+    Hola <?= unserialize($_SESSION['user']) ?> !
+    <a class="text-red-400 block" href="main.php?logout">
+      Salir
+    </a>
   </div>
-  <!-- Mensaje para cuando agregamos un contacto satisfactoriamente -->
-  <?php if(isset($_GET["success"])):?>
-  <div class="bg-lime-700 text-lime-200 absolute top-5 left-1/2 -translate-x-1/2 rounded-xl px-4 py-2">
-    El contacto se ha guardado satisfactoriamente
-  </div>
-  <?php endif; ?>
-  <div id="content" class="text-white px-24">
-      <div class="overflow-x-auto relative shadow-md rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" class="py-3 px-6">
-                Nombre
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Telefono
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Observaciones
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Action
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $idUsu = unserialize($_SESSION["user"])->id;
-            $contactos = Contacto::getAllByUser($idUsu);
-            // echo "<pre>".print_r($contactos, true)."</pre>";
-            foreach ($contactos as $item) :
-            ?>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
-                  <img class="w-10 h-10 rounded-full" src="<?= $item->foto ?>" alt="ProfilePic">
-                  <div class="pl-3">
-                    <div class="text-base font-semibold"><?= $item ?></div>
-                    <div class="font-normal text-gray-500"><?= $item->email ?></div>
-                  </div>
-                </th>
-                <td class="py-4 px-6">
-                  <?= $item->telefono ?>
-                </td>
-                <td class="py-4 px-6">
-                  <div class="flex items-center">
-                    <?= $item->observaciones ?>
-                  </div>
-                </td>
-                <td class="py-4 px-6">
-                  <a href="editarContacto.php?id=<?= $item->id ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                </td>
-                <td class="py-4 px-6">
-                  <a href="main.php?borrar=<?= $item->id ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete user</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-      <!-- Boton nuevo contacto -->
-      <a href="./guardarContacto.php">
-        <div class="w-fit bg-lime-300 text-lime-800 rounded-xl m-auto p-4 font-bold mt-4">
-          Crear nuevo contacto
-        </div>
-      </a>
+  <table class="w-[500px] shadow-xl rounded-md overflow-hidden m-auto">
+    <p class="text-center text-white mb-4 text-lg font-bold">Estas son tus tareas:</p>
+    <tr class="bg-[#3ff]/[0.7] text-white text-lg font-bold">
+      <th>Descripción</th>
+      <th class="w-[200px]"></th>
+      <th>Completada</th>
+      <th></th>
+    </tr>
+    <?php foreach (Lista::getAllByIdUser($idUsu) as $i => $task) : ?>
+      <tr class="py-12 text-center bg-white<?= $i % 2 == 0 ? "" : "/[0.8]" ?> mt-2">
+        <td><?= $task->description ?></td>
+        <td>
+          <a class="text-blue-600 " href="credit.php?task=<?= $task->id ?>">
+            Editar
+          </a>
+        </td>
+        <td>
+          <a href="main.php?changeState=<?= $task->id ?>">
+            <?= $task->state ? "🟢" : "🔴" ?>
+          </a>
+        </td>
+        <td>
+          <a href="main.php?borrar=<?= $task->id ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6 m-1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
+          </a>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+  <div>
+    <a href="credit.php" class="p-3 border border-black rounded-md m-auto block w-fit mt-12 bg-[#3ff]/[0.6] text-white font-bold hover:bg-[#3ff]/[0.2] ">
+      Añadir nueva tarea
+    </a>
   </div>
 </body>
 
