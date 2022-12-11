@@ -1,0 +1,12 @@
+canvas {
+    background: #eee;
+}
+
+#startGame {
+    box-shadow: 0px 4px black;
+}
+
+#startGame:active {
+    transform: translateX(-50%) translateY(2px);
+    box-shadow: 0px 2px black;
+}
