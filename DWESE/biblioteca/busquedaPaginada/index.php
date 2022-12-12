@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,25 +8,6 @@
   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <title>Biblioteca</title>
 </head>
-<?php
-require_once("../modelos/libro.php");
-require_once("database.php");
-
-//Calculando número de libros por página y número de páginas necesarias.
-define("REGISTROS", 4);
-$pag = $_GET["pagina"] ?? 0;
-$inicio = $pag * REGISTROS;
-$cantidad = REGISTROS;
-
-$resultado1 = $con->query("SELECT * FROM libro;");
-$numBooks = $resultado1->num_rows;
-$totalPages = floor($numBooks / REGISTROS);
-
-//Seleccionando libros de la página actual.
-$sql = "SELECT * FROM libro LIMIT {$inicio}, {$cantidad} ;";
-$resultado = $con->query($sql);
-?>
-
 <body class="bg-neutral-100">
   <div class="text-3xl font-bold text-center text-black mt-4 ">BIBLIOTECA</div>
   <div class="w-1/2 m-auto mt-6 flex flex-row gap-1">
