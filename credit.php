@@ -57,7 +57,7 @@ endif;
       <input type="hidden" name="_token" value="<?= new Token ?>">
       <input type="hidden" name="id" value=" <?= $task->id; ?> ">
       <label for="description">Descripcion</label>
-      <input value="<?= $task->description ?>" name="description" id="description" type="text" class="text-lg px-2 py-1 rounded-md bg-black/[0.05] font-bold shadow-xl m-3">
+      <input autocomplete="off" value="<?= $task->description ?>" name="description" id="description" type="text" class="text-lg px-2 py-1 rounded-md bg-black/[0.05] font-bold shadow-xl m-3">
       <button type="submit" class="rounded-md border border-black bg-teal-600 font-bold text-white w-fit px-2 py-1">Editar</button>
     </form>
     <!-- CREAR -->
@@ -65,7 +65,7 @@ endif;
     <form method="post" action="credit.php" class="flex flex-col w-[500px] m-auto border border-black shadow-3xl mt-12 py-1 px-6 bg-white rounded-md">
       <input type="hidden" name="_token" value="<?= new Token ?>">
       <label for="description" class="font-bold text-xl">Escribe una descripcion</label>
-      <input name="description" id="description" type="text" required class="text-lg px-2 py-1 rounded-md bg-black/[0.05] font-bold shadow-xl m-3">
+      <input autocomplete="off" name="description" id="description" type="text" required class="text-lg px-2 py-1 rounded-md bg-black/[0.05] font-bold shadow-xl m-3">
       <div class="flex justify-between mt-2">
         <button type="submit" class="rounded-md border border-black bg-teal-600 font-bold text-white w-fit px-2 py-1">Guardar</button>
         <select name="state" class="w-fit border border-black h-fit">
