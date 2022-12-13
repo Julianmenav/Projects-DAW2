@@ -21,7 +21,7 @@ if (isset($_GET["task"])) {
 }
 //CREDIT
 if (isset($_POST["description"])) :
-  if (Token::check($_POST["_token"])) :
+  if (!Token::check($_POST["_token"])) exit(header("location: index.php"));
     $db = Database::getDataBase();
     $datos = $db->escape($_POST);
 
@@ -39,7 +39,6 @@ if (isset($_POST["description"])) :
       $task->create();
     endif;
     exit(header("location: main.php"));
-  endif;
 endif;
 ?>
 <!DOCTYPE html>
@@ -58,8 +57,8 @@ endif;
       <input type="hidden" name="_token" value="<?= new Token ?>">
       <input type="hidden" name="id" value=" <?= $task->id; ?> ">
       <label for="description">Descripcion</label>
-      <input value="<?= $task->description ?>" name="description" id="description" type="text" class="text-lg px-2 py-1 rounded-md bg-white/[0.1] text-white ">
-      <button type="submit" class="rounded-md border border-black mt-12 bg-teal-600 font-bold text-white w-fit m-auto px-2 py-1">Editar</button>
+      <input value="<?= $task->description ?>" name="description" id="description" type="text" class="text-lg px-2 py-1 rounded-md bg-black/[0.05] font-bold shadow-xl m-3">
+      <button type="submit" class="rounded-md border border-black bg-teal-600 font-bold text-white w-fit px-2 py-1">Editar</button>
     </form>
     <!-- CREAR -->
   <?php else : ?>
