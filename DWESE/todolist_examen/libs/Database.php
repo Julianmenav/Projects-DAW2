@@ -1,0 +1,50 @@
+<?php
+  /**
+   * Autor: Julián Mena Viñas 12/12/22 
+   * 
+   */
+
+  class Database {
+    private static $instancia = null;
+    private $resultado;
+    private $con;
+    private function __construct() {
+      try{
+        $this->con = new mysqli("localhost", "root", "", "metdolist");
+      } catch(mysqli_sql_exception $e){
+        die("Error con la base de datos");
+      }
+    }
+    //SINGLETON
+    public static function getDataBase() {
+      if (self::$instancia == null) self::$instancia = new Database ;
+      return self::$instancia;
+    }
+    public function escape(array $arr): array {
+      $result = [];
+      foreach($arr as $key => $value){
+        $result[$key] = $this->con->real_escape_string($value);
+      }
+      return $result;
+    }
+
+    public function query($sql){
+      $this->resultado = $this->con->query($sql);
+      return $this;
+    }
+
+    public function getData($class = "StdClass"){
+      return $this->resultado->fetch_object($class);
+    }
+
+    public function getAll($class = "StdClass"){
+      $result = [];
+      while($item = $this->getData($class)){
+        $result[] = $item;
+      }
+      return $result;
+    }
+
+
+
+  }
