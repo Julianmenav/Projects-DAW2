@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("./models/Usuario.php");
-require_once("./lib/Database.php");
+require_once("./lib/database.php");
 require_once("./lib/Token.php");
 
 if (isset($_SESSION["user"])) exit(header("location: main.php"));
