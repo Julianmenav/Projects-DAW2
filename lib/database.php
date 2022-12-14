@@ -7,7 +7,7 @@
 
     private function __construct() {
       try{  
-        $this->con = new mysqli("localhost", "root", "", "todo");
+        $this->con = new mysqli("web-database.ceguh84colq0.us-east-1.rds.amazonaws.com", "admin", "", "todolist");
       } catch(mysqli_sql_exception $e){
         die("Error con la base de datos");
       }
